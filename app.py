@@ -4,6 +4,52 @@ import os
 
 # --- إعدادات الصفحة ---
 st.set_page_config(page_title="نظام إدارة البحث العلمي", layout="wide", page_icon="📚")
+# --- تنسيق الواجهة (اتجاه اليمين + تكبير خط القائمة) ---
+st.markdown("""
+<style>
+    /* 1. ضبط اتجاه الصفحة بالكامل لليمين */
+    .stApp {
+        direction: rtl;
+        text-align: right;
+    }
+
+    /* 2. نقل القائمة الجانبية لليمين */
+    [data-testid="stSidebar"] {
+        right: 0;
+        left: auto;
+    }
+    
+    section[data-testid="stSidebar"] > div {
+        direction: rtl;
+        text-align: right;
+    }
+
+    /* 3. تنسيق خط القائمة الجانبية (عناصر التنقل) */
+    div[data-testid="stRadio"] label p {
+        font-size: 18px !important;       /* حجم الخط */
+        font-weight: bold !important;     /* خط عريض */
+        font-family: 'Segoe UI', sans-serif !important;
+        margin-bottom: 10px !important;   /* مسافة إضافية بين العناصر */
+        color: #1f2a44 !important;        /* لون الخط (كحلي غامق) */
+    }
+
+    /* 4. تنسيق عنوان "انتقل إلى" في القائمة */
+    div[data-testid="stSidebar"] p {
+        font-size: 16px;
+    }
+
+    /* 5. تنسيق نصوص الكتابة (Text Areas) */
+    .stTextArea textarea {
+        direction: rtl;
+        text-align: right;
+        font-size: 16px;
+    }
+    .stTextInput input {
+        direction: rtl;
+        text-align: right;
+    }
+</style>
+""", unsafe_allow_html=True)
 
 # --- ملف تخزين البيانات ---
 DB_FILE = "research_data.json"
@@ -142,3 +188,4 @@ def main_app():
 # --- تشغيل التطبيق ---
 if check_login():
     main_app()
+
