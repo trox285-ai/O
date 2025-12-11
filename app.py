@@ -4,7 +4,7 @@ import os
 
 # --- إعدادات الصفحة ---
 st.set_page_config(page_title="نظام إدارة البحث العلمي", layout="wide", page_icon="📚")
-# --- تنسيق الواجهة (اتجاه اليمين + تكبير خط القائمة) ---
+# --- تنسيق الواجهة (اتجاه اليمين شامل العناوين) ---
 st.markdown("""
 <style>
     /* 1. ضبط اتجاه الصفحة بالكامل لليمين */
@@ -13,7 +13,14 @@ st.markdown("""
         text-align: right;
     }
 
-    /* 2. نقل القائمة الجانبية لليمين */
+    /* 2. إجبار العناوين الرئيسية والفرعية على الاتجاه لليمين */
+    h1, h2, h3, h4, h5, h6, .stMarkdown {
+        direction: rtl !important;
+        text-align: right !important;
+        width: 100%; /* ضمان أخذ العرض الكامل */
+    }
+
+    /* 3. نقل القائمة الجانبية لليمين */
     [data-testid="stSidebar"] {
         right: 0;
         left: auto;
@@ -24,18 +31,19 @@ st.markdown("""
         text-align: right;
     }
 
-    /* 3. تنسيق خط القائمة الجانبية (عناصر التنقل) */
+    /* 4. تنسيق خط القائمة الجانبية (عناصر التنقل) */
     div[data-testid="stRadio"] label p {
-        font-size: 18px !important;       /* حجم الخط */
-        font-weight: bold !important;     /* خط عريض */
+        font-size: 18px !important;
+        font-weight: bold !important;
         font-family: 'Segoe UI', sans-serif !important;
-        margin-bottom: 10px !important;   /* مسافة إضافية بين العناصر */
-        color: #1f2a44 !important;        /* لون الخط (كحلي غامق) */
+        margin-bottom: 10px !important;
+        color: #1f2a44 !important;
+        text-align: right !important; /* تأكيد المحاذاة لليمين */
     }
-
-    /* 4. تنسيق عنوان "انتقل إلى" في القائمة */
-    div[data-testid="stSidebar"] p {
-        font-size: 16px;
+    
+    /* محاذاة النص داخل خيارات الراديو نفسها */
+    div[data-testid="stRadio"] > div {
+        align-items: flex-end; /* هذا السطر مهم جداً لمحاذاة العناصر لليمين */
     }
 
     /* 5. تنسيق نصوص الكتابة (Text Areas) */
@@ -47,6 +55,11 @@ st.markdown("""
     .stTextInput input {
         direction: rtl;
         text-align: right;
+    }
+    
+    /* 6. إزاحة المحتوى قليلاً لليسار حتى لا يختفي خلف القائمة الجانبية */
+    .main .block-container {
+        padding-right: 5rem; /* مسافة أمان من اليمين */
     }
 </style>
 """, unsafe_allow_html=True)
@@ -188,4 +201,5 @@ def main_app():
 # --- تشغيل التطبيق ---
 if check_login():
     main_app()
+
 
