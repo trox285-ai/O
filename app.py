@@ -4,6 +4,38 @@ import os
 
 # --- إعدادات الصفحة ---
 st.set_page_config(page_title="نظام إدارة البحث العلمي", layout="wide", page_icon="📚")
+# --- تفعيل المحاذاة لليمين (RTL) ---
+st.markdown("""
+<style>
+    /* تغيير اتجاه الصفحة بالكامل إلى اليمين */
+    .stApp {
+        direction: rtl;
+        text-align: right;
+    }
+
+    /* كود خاص لقلب مكان القائمة الجانبية */
+    [data-testid="stSidebar"] {
+        right: 0;
+        left: auto;
+    }
+
+    /* إصلاح ظهور النصوص داخل القائمة */
+    section[data-testid="stSidebar"] > div {
+        direction: rtl;
+        text-align: right;
+    }
+    
+    /* إصلاح اتجاه النصوص في الحقول */
+    .stTextArea textarea {
+        direction: rtl;
+        text-align: right;
+    }
+    .stTextInput input {
+        direction: rtl;
+        text-align: right;
+    }
+</style>
+""", unsafe_allow_html=True)
 
 # --- ملف تخزين البيانات ---
 DB_FILE = "research_data.json"
@@ -141,4 +173,5 @@ def main_app():
 
 # --- تشغيل التطبيق ---
 if check_login():
+
     main_app()
